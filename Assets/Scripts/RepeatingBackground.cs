@@ -5,16 +5,14 @@
 	{
 		public float Speed;
 
-		private float _width;
+		float endX;
 
 		public void Start()
 		{
-			_width = GetComponent<SpriteRenderer>().size.x;
+			endX = GetComponent<SpriteRenderer>().size.x;
 		}
 
-		/// <summary>
-		/// The simplest background move example. You should use advanced techniques to make the movement smooth.
-		/// </summary>
+
 		public void Update()
 		{
 			transform.localPosition += Speed * Vector3.right * Time.deltaTime;
@@ -23,13 +21,13 @@
 
 		private void Repeat()
 		{
-			if (transform.localPosition.x >= _width / 4)
+			if (transform.localPosition.x >= endX / 4)
 			{
-				transform.localPosition += Vector3.left * _width / 2;
+				transform.localPosition += Vector3.left * endX / 2;
 			}
-			else if (transform.localPosition.x <= -_width / 4)
+			else if (transform.localPosition.x <= -endX / 4)
 			{
-				transform.localPosition += Vector3.right * _width / 2;
+				transform.localPosition += Vector3.right * endX / 2;
 			}
 		}
 	}
