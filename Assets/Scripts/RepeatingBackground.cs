@@ -3,9 +3,12 @@
 
 	public class RepeatingBackground : MonoBehaviour
 	{
-		public float Speed;
+		float Speed;
 
 		float endX;
+
+		[SerializeField] Rigidbody2D rb;
+		[SerializeField] float parallaxVelocity;
 
 		public void Start()
 		{
@@ -15,7 +18,10 @@
 
 		public void Update()
 		{
-			transform.localPosition += Speed * Vector3.right * Time.deltaTime;
+
+			Speed = rb.velocity.x / parallaxVelocity;
+
+			transform.localPosition -= Speed * Vector3.right * Time.deltaTime;
 			Repeat();
 		}
 

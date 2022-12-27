@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -220,7 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dff95ff9335ab48a3e9beb15dcf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -3
+  rb: {fileID: 631798727}
+  parallaxVelocity: 1
 --- !u!1 &97174339
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dff95ff9335ab48a3e9beb15dcf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -2
+  rb: {fileID: 631798727}
+  parallaxVelocity: 5
 --- !u!212 &97174342
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -416,7 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dff95ff9335ab48a3e9beb15dcf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -1
+  rb: {fileID: 631798727}
+  parallaxVelocity: 7
 --- !u!1 &190415166
 GameObject:
   m_ObjectHideFlags: 0
@@ -514,7 +517,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dff95ff9335ab48a3e9beb15dcf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -2.5
+  rb: {fileID: 631798727}
+  parallaxVelocity: 3
 --- !u!1 &373237584
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +616,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dff95ff9335ab48a3e9beb15dcf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -1
+  rb: {fileID: 631798727}
+  parallaxVelocity: 2
 --- !u!1 &397889375
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,8 +696,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 397889375}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -4.13, z: 0}
-  m_LocalScale: {x: 3.4726555, y: 0.9635974, z: 1}
+  m_LocalPosition: {x: 0.2634, y: -4.13, z: 0}
+  m_LocalScale: {x: 11.10205, y: 0.9635974, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -734,6 +739,7 @@ GameObject:
   m_Component:
   - component: {fileID: 492632768}
   - component: {fileID: 492632769}
+  - component: {fileID: 492632770}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -781,9 +787,9 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
-  orthographic size: 6
+  field of view: 55
+  orthographic: 0
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -799,6 +805,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &492632770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492632767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 846a625a5e1bd6d4a9fe0d7414104928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 631798723}
 --- !u!1 &631798722
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,7 +845,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 631798722}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1.79, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -848,8 +867,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrounded: 0
-  jumpForce: 5
-  verticalMovement: 5
+  jumpForce: 6
+  speed: 2
   rb: {fileID: 631798727}
 --- !u!70 &631798726
 CapsuleCollider2D:
@@ -959,7 +978,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dff95ff9335ab48a3e9beb15dcf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -2
+  rb: {fileID: 631798727}
+  parallaxVelocity: 4
 --- !u!212 &954656169
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1057,7 +1077,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50dff95ff9335ab48a3e9beb15dcf902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: -1.5
+  rb: {fileID: 631798727}
+  parallaxVelocity: 6
 --- !u!212 &978612747
 SpriteRenderer:
   m_ObjectHideFlags: 0
