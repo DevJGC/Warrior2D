@@ -48,18 +48,19 @@ public class PlayerMovement : MonoBehaviour
             isRight = true;
         }
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
         {
-            animator.SetBool("Attack", true);   
+            //animator.SetBool("Attack", true); 
+            animator.SetTrigger("AttackTrigger");  
         }
-        else
-        {
-            animator.SetBool("Attack", false);
-        }
+       // else
+       // {
+        //    animator.SetBool("Attack", false);
+       // }
 
 
        
-        if (Input.GetMouseButton(1) && isGrounded)
+        if (Input.GetMouseButton(1) && isGrounded || Input.GetKeyDown(KeyCode.UpArrow) && isGrounded )
        // if (Input.GetKeyDown(KeyCode.Space) && isGrounded) // Activar para tecla Espacio
         {
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
