@@ -11,11 +11,28 @@ public class PlayerMovement : MonoBehaviour
     float horizontalMovement;
 
     [SerializeField] Rigidbody2D rb;
+    float velocityY;
+    // capsule collider
+    [SerializeField] CapsuleCollider2D capsuleCollider2D;
+    
 
     // Animations
     [SerializeField] Animator animator;
 
     bool isRight;
+
+    bool isDie=false;
+
+    // sounds
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip attackSound;
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioClip dieSound;
+
+
+
+
 
 
 
@@ -26,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     {
        // rb = GetComponent<Rigidbody2D>();
        // animator = GetComponent<Animator>();
+       capsuleCollider2D = GetComponent<CapsuleCollider2D>();
 
             
     }
@@ -33,6 +51,29 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
+        if (isDie==true) return;
+
+        // check y velocity
+        velocityY = rb.velocity.y;
+        if (velocityY >0)
+        {
+            // deactivate capsule collider
+            capsuleCollider2D.enabled=false;
+        }
+        else
+        {       
+            // activate capsule collider
+            capsuleCollider2D.enabled=true;
+
+        }
+
+
+
+
+
+        CheckRigidBody2dGround();
+
+
         horizontalMovement = Input.GetAxis("Horizontal") * speed;
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
@@ -48,21 +89,18 @@ public class PlayerMovement : MonoBehaviour
             isRight = true;
         }
 
+        // Attack
         if (Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
-        {
-            //animator.SetBool("Attack", true); 
-            animator.SetTrigger("AttackTrigger");  
+        {   
+            Attack();
         }
-       // else
-       // {
-        //    animator.SetBool("Attack", false);
-       // }
 
 
-       
+
+       // Jump
         if (Input.GetMouseButton(1) && isGrounded || Input.GetKeyDown(KeyCode.UpArrow) && isGrounded )
-       // if (Input.GetKeyDown(KeyCode.Space) && isGrounded) // Activar para tecla Espacio
         {
+            audioSource.PlayOneShot(jumpSound);
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
             isGrounded = false;
         }
@@ -73,18 +111,28 @@ public class PlayerMovement : MonoBehaviour
         }
 
     rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
- 
-    
 
-    
-    }
 
-    void FixedUpdate()
+     // dead
+     if (Input.GetKeyDown(KeyCode.X) && isDie==false)
+     {
+        Die();
+        isDie=true;
+
+     }
+
+    // hurt
+    if (Input.GetKeyDown(KeyCode.H))
     {
-
-       // rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
-
+        Hurt();
     }
+       
+    
+
+    
+    }
+
+
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -93,6 +141,45 @@ public class PlayerMovement : MonoBehaviour
 
         //Debug.Log("Suelo");
     }
+
+    public void Attack()
+    {
+        audioSource.PlayOneShot(attackSound);
+        animator.SetTrigger("AttackTrigger");
+    }
+
+    // hurt
+    public void Hurt()
+    {
+        audioSource.PlayOneShot(hurtSound);
+        animator.SetTrigger("Hurt");
+    }
+
+    // dead
+    public void Die()
+    {
+        audioSource.PlayOneShot(dieSound);
+        animator.SetTrigger("Die");
+
+    }
+
+    public void CheckRigidBody2dGround()
+    {
+        bool isAwake;   
+        isAwake = rb.IsAwake();
+
+        if (isAwake==false)
+        {   
+            isAwake=true;
+            rb.WakeUp();
+            isGrounded=true;
+        }
+
+       // Debug.Log(isAwake);
+        
+    }
+    
+    
 
 
 

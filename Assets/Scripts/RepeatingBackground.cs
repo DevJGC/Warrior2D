@@ -18,6 +18,7 @@
 
 		public void Update()
 		{
+			//endX = GetComponent<SpriteRenderer>().size.x;
 
 			Speed = rb.velocity.x / parallaxVelocity;
 
