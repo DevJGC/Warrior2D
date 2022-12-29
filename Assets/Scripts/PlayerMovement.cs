@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
 
-
+    rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
  
     
 
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
 
-        rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
+       // rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
 
     }
 
