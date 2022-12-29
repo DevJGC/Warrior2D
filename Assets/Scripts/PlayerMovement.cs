@@ -51,7 +51,6 @@ public class PlayerMovement : MonoBehaviour
     
     void Update()
     {
-        if (isDie==true) return;
 
         // check y velocity
         velocityY = rb.velocity.y;
@@ -69,10 +68,20 @@ public class PlayerMovement : MonoBehaviour
 
 
 
+        if (isDie==false)
+        {
 
+            PlayerControl();  
 
+        }
+
+    
+    
+    }
+
+    public void PlayerControl()
+    {
         CheckRigidBody2dGround();
-
 
         horizontalMovement = Input.GetAxis("Horizontal") * speed;
 
@@ -95,8 +104,6 @@ public class PlayerMovement : MonoBehaviour
             Attack();
         }
 
-
-
        // Jump
         if (Input.GetMouseButton(1) && isGrounded || Input.GetKeyDown(KeyCode.UpArrow) && isGrounded )
         {
@@ -110,27 +117,23 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
 
-    rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
+        rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
 
+        // dead
+        if (Input.GetKeyDown(KeyCode.X) && isDie==false)
+        {
+            Die();
+            isDie=true;
+        }
 
-     // dead
-     if (Input.GetKeyDown(KeyCode.X) && isDie==false)
-     {
-        Die();
-        isDie=true;
+        // hurt
+         if (Input.GetKeyDown(KeyCode.H))
+         {
+            Hurt();
+         }
 
-     }
-
-    // hurt
-    if (Input.GetKeyDown(KeyCode.H))
-    {
-        Hurt();
     }
-       
-    
 
-    
-    }
 
 
 
@@ -139,7 +142,6 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = true;
         animator.SetBool("isJumping", false);
 
-        //Debug.Log("Suelo");
     }
 
     public void Attack()
@@ -160,7 +162,13 @@ public class PlayerMovement : MonoBehaviour
     {
         audioSource.PlayOneShot(dieSound);
         animator.SetTrigger("Die");
+        Invoke("isDead",1f);
+       
+    }
 
+    public void isDead()
+    {
+        animator.SetBool("isDead", true);
     }
 
     public void CheckRigidBody2dGround()
@@ -174,15 +182,8 @@ public class PlayerMovement : MonoBehaviour
             rb.WakeUp();
             isGrounded=true;
         }
-
-       // Debug.Log(isAwake);
         
     }
     
-    
-
-
-
-
 
 }
