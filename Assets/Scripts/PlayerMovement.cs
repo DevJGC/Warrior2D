@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     bool isRight;
 
-    bool isDie=false;
+    public bool isDie=false;
 
     // sounds
     [SerializeField] AudioSource audioSource;
@@ -30,6 +31,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AudioClip hurtSound;
     [SerializeField] AudioClip dieSound;
 
+    // Referencias a canvas
+    public float energy=1f;
+    
+    [SerializeField] Image imageEnergy;
 
 
 
@@ -139,8 +144,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        isGrounded = true;
-        animator.SetBool("isJumping", false);
+       // if (other.gameObject.CompareTag("Ground"))
+       // {
+            isGrounded = true;
+            animator.SetBool("isJumping", false);
+       // }
+
+
+        // No salta si es enemigo, darle una vuelta
+        //if (other.gameObject.CompareTag("Enemy"))
+        //{
+        //    isGrounded= false;
+        //}
 
     }
 
@@ -155,6 +170,8 @@ public class PlayerMovement : MonoBehaviour
     {
         audioSource.PlayOneShot(hurtSound);
         animator.SetTrigger("Hurt");
+        energy -= 0.1f;
+        SyncEnergy();
     }
 
     // dead
@@ -184,6 +201,28 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
+
+    public void SyncEnergy()
+    {
+        imageEnergy.fillAmount = energy;
+
+        if(energy <=0)
+        {
+            isDie=true;
+            Die();
+        }
+    }
+
+    public void AddEnergy()
+    {
+        if(energy < 1f)
+        {
+            energy += 0.1f;
+        }
+       
+        SyncEnergy();
+    }
+
     
 
 }
