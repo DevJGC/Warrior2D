@@ -8,6 +8,10 @@ public class TriggerPlayer : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip eatSound;
 
+    [SerializeField] AudioClip coinSound;
+
+
+
     void Start()
     {
         
@@ -25,7 +29,7 @@ public class TriggerPlayer : MonoBehaviour
         {
             audioSource.PlayOneShot(eatSound);
             player.AddEnergy();
-            Destroy(collision.gameObject);
+            Destroy(collision.gameObject,1f);
 
         }
 
@@ -48,6 +52,18 @@ public class TriggerPlayer : MonoBehaviour
             player.Die();
 
         }
+
+        if (collision.gameObject.tag == "Coin")
+        {
+            audioSource.PlayOneShot(coinSound);
+
+            player.AddCoin();
+            Destroy(collision.gameObject,1f);
+
+
+        }
+
+
 
 
 

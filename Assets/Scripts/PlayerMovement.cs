@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class PlayerMovement : MonoBehaviour
 
     public bool isDie=false;
 
+    public int coin;
+
     // sounds
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip jumpSound;
@@ -35,6 +38,7 @@ public class PlayerMovement : MonoBehaviour
     public float energy=1f;
     
     [SerializeField] Image imageEnergy;
+    [SerializeField] TMP_Text textCoin;
 
 
 
@@ -238,6 +242,14 @@ public class PlayerMovement : MonoBehaviour
        
         SyncEnergy();
     }
+
+    public void AddCoin()
+    {
+        coin++;
+        textCoin.text = coin.ToString();
+
+    }
+
 
     
 
