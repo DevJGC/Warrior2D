@@ -110,11 +110,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
        // Jump
-        if (Input.GetMouseButton(1) && isGrounded || Input.GetKeyDown(KeyCode.UpArrow) && isGrounded )
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
         {
+            isGrounded = false;
             audioSource.PlayOneShot(jumpSound);
             rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
-            isGrounded = false;
+            
         }
 
         if (isGrounded == false)
@@ -123,6 +124,12 @@ public class PlayerMovement : MonoBehaviour
         }
 
         rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
+        if (rb.velocity.y == 0) isGrounded=true;
+
+        //{
+        //    animator.SetBool("isJumping", true);
+        //}
+
 
         // dead
         if (Input.GetKeyDown(KeyCode.X) && isDie==false)
@@ -144,20 +151,28 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-       // if (other.gameObject.CompareTag("Ground"))
-       // {
+       if (other.gameObject.CompareTag("Ground"))
+       {
+            isGrounded = true;
+            //animator.SetBool("isJumping", false);
+       }
+       else
+        {
+            isGrounded = false;
+            animator.SetBool("isJumping", false);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+       if (other.gameObject.CompareTag("Ground"))
+       {
             isGrounded = true;
             animator.SetBool("isJumping", false);
-       // }
-
-
-        // No salta si es enemigo, darle una vuelta
-        //if (other.gameObject.CompareTag("Enemy"))
-        //{
-        //    isGrounded= false;
-        //}
-
+       }
     }
+
+
 
     public void Attack()
     {
@@ -199,7 +214,8 @@ public class PlayerMovement : MonoBehaviour
             rb.WakeUp();
             isGrounded=true;
         }
-        
+
+        if (isGrounded==true) animator.SetBool("isJumping", false);        
     }
 
     public void SyncEnergy()
