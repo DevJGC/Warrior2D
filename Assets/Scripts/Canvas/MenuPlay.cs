@@ -20,7 +20,7 @@ public class MenuPlay : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("GamePlay");
+        SceneManager.LoadScene("Levels");
         
     }
 }
