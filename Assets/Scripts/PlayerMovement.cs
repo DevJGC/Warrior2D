@@ -33,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] AudioClip attackSound;
     [SerializeField] AudioClip hurtSound;
     [SerializeField] AudioClip dieSound;
+    [SerializeField] AudioClip lifeSound;
 
     // Referencias a canvas
     public float energy=1f;
@@ -42,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
 
     // CheckPoint Position
     [SerializeField] Transform checkPointPosition;
+    public bool isCheckPointBool=false;
     
 
 
@@ -57,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
        // rb = GetComponent<Rigidbody2D>();
        // animator = GetComponent<Animator>();
        capsuleCollider2D = GetComponent<CapsuleCollider2D>();
+
+       //energy=1f;
 
             
     }
@@ -200,6 +204,7 @@ public class PlayerMovement : MonoBehaviour
     // dead
     public void Die()
     {
+        imageEnergy.color = Color.red;
         audioSource.PlayOneShot(dieSound);
         animator.SetTrigger("Die");
         Invoke("isDead",1f);
@@ -229,9 +234,11 @@ public class PlayerMovement : MonoBehaviour
     public void SyncEnergy()
     {
         imageEnergy.fillAmount = energy;
+        
 
         if(energy <=0)
         {
+            imageEnergy.color = Color.red;
             isDie=true;
             Die();
         }
@@ -256,9 +263,34 @@ public class PlayerMovement : MonoBehaviour
 
     public void CheckPoint()
     {
+        //energy=0f;
+        //SyncEnergy();
+
+       // imageEnergy.fillAmount = 0f;
+        
         transform.position = checkPointPosition.position;
+        isDie=false;
+        
+        
+        animator.SetBool("isDead", false);
+        animator.SetFloat("Speed", 0f);
+        audioSource.PlayOneShot(lifeSound);
+        Invoke ("ResetEnergy",1f);
+
+
     }
 
+    private void ResetEnergy()
+    {
+        energy=1f;
+        imageEnergy.color = Color.white;
+        imageEnergy.fillAmount = 1f;
+        
+
+        
+
+        //SyncEnergy();
+    }
 
 
 

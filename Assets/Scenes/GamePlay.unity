@@ -2032,10 +2032,12 @@ MonoBehaviour:
   attackSound: {fileID: 8300000, guid: e795e825494033f4c991684665294180, type: 3}
   hurtSound: {fileID: 8300000, guid: 580d18abd275a694fb118c5392cb3467, type: 3}
   dieSound: {fileID: 8300000, guid: 7d1fdbfb4ae879d4b9ea5bd97d8c187d, type: 3}
+  lifeSound: {fileID: 8300000, guid: 72a935158ab92af43af3dc69abc8e845, type: 3}
   energy: 1
   imageEnergy: {fileID: 336622431}
   textCoin: {fileID: 1162948797}
   checkPointPosition: {fileID: 1530420089}
+  isCheckPointBool: 0
 --- !u!70 &631798726
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -4062,7 +4064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAttacking: 0
-  player: {fileID: 631798725}
+  playerScript: {fileID: 631798725}
 --- !u!1 &1851806499
 GameObject:
   m_ObjectHideFlags: 0
