@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
     public bool isDie=false;
 
     public int coin;
+    public int diamond;
 
     // sounds
     [SerializeField] AudioSource audioSource;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] Image imageEnergy;
     [SerializeField] TMP_Text textCoin;
+    [SerializeField] TMP_Text textDiamond;
 
     // CheckPoint Position
     [SerializeField] Transform checkPointPosition;
@@ -301,6 +303,12 @@ public class PlayerMovement : MonoBehaviour
 
         //SyncEnergy();
     }
+
+    public void AddDiamond()
+    {
+        diamond++;
+        textDiamond.text = diamond.ToString();
+    }    
 
 
 

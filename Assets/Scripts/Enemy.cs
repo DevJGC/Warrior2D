@@ -9,8 +9,8 @@ public class Enemy : MonoBehaviour
     // Position X Player
     [SerializeField] GameObject playerPositionObject;
 
-    // Coin Enemy
-    [SerializeField] GameObject coin;
+    // Diamond
+    [SerializeField] GameObject diamondPrefab;
 
 
     [SerializeField] IsAttackingScript isAttackingScript;
@@ -108,6 +108,16 @@ public class Enemy : MonoBehaviour
 
     private void EnemyDie()
     {
+        //Instantiate(diamondPrefab,transform.position,Quaternion.identity);
+
+
+        // Instantiate diamondPrefab
+        GameObject diamond = Instantiate(diamondPrefab,transform.position,Quaternion.identity);
+
+        diamond.transform.SetParent(GameObject.FindWithTag("BaseLayer").transform);
+        
+
+        
         PlaySoundDieEnemy();
         animatorEnemy.SetTrigger("Die");
         colliderEnemy.enabled=false;
@@ -117,14 +127,14 @@ public class Enemy : MonoBehaviour
 
         particlesEnemyBlood.SetActive(true);
 
-        // Instantiate Coin
-        //Instantiate(coin,transform.position,Quaternion.identity);
+        // Instantiate diamondPrefab
+        
 
         // remove from father
-        coin.SetActive(true);
-        coin.transform.parent=null;
+        //coin.SetActive(true);
+        //coin.transform.parent=null;
         // set parent to Tag layer
-        coin.transform.SetParent(GameObject.FindWithTag("BaseLayer").transform);
+        //coin.transform.SetParent(GameObject.FindWithTag("BaseLayer").transform);
 
 
         // Destroy Enemy

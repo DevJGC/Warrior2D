@@ -12,6 +12,7 @@ TagManager:
   - CheckPoint
   - RightUp
   - BaseLayer
+  - Diamond
   layers:
   - Default
   - TransparentFX
