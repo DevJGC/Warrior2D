@@ -9,6 +9,7 @@ TagManager:
   - Dead
   - Ground
   - Coin
+  - CheckPoint
   layers:
   - Default
   - TransparentFX

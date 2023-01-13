@@ -9,6 +9,10 @@ public class TriggerPlayer : MonoBehaviour
     [SerializeField] AudioClip eatSound;
 
     [SerializeField] AudioClip coinSound;
+    [SerializeField] AudioClip checkPointSound;
+    [SerializeField] CheckPoint checkPoint;
+    
+
 
 
 
@@ -62,6 +66,14 @@ public class TriggerPlayer : MonoBehaviour
 
 
         }
+
+        if (collision.gameObject.tag == "CheckPoint" && checkPoint.isCheckPoint)
+        {
+
+            audioSource.PlayOneShot(checkPointSound);
+            //player.checkPoint = collision.gameObject.transform.position;
+            Destroy(collision.gameObject.GetComponent<BoxCollider2D>(),1f);
+        }    
 
 
 

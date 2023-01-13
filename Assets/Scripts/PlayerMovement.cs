@@ -40,6 +40,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Image imageEnergy;
     [SerializeField] TMP_Text textCoin;
 
+    // CheckPoint Position
+    [SerializeField] Transform checkPointPosition;
+    
+
 
 
 
@@ -249,6 +253,13 @@ public class PlayerMovement : MonoBehaviour
         textCoin.text = coin.ToString();
 
     }
+
+    public void CheckPoint()
+    {
+        transform.position = checkPointPosition.position;
+    }
+
+
 
 
     

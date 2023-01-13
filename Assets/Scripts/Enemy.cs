@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] Animator animatorEnemy;
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioClip dieSound;
 
     [SerializeField] CircleCollider2D colliderEnemy;
 
@@ -81,7 +82,7 @@ public class Enemy : MonoBehaviour
 
     private void EnemyDie()
     {
-        PlaySoundHurtEnemy();
+        PlaySoundDieEnemy();
         animatorEnemy.SetTrigger("Die");
         colliderEnemy.enabled=false;
         animatorEnemy.SetBool("isLive",false);
@@ -95,6 +96,13 @@ public class Enemy : MonoBehaviour
         {
             audioSource.PlayOneShot(hurtSound);
         }
+    }
+
+    private void PlaySoundDieEnemy()
+    {
+       
+            audioSource.PlayOneShot(dieSound);
+        
     }
 
     

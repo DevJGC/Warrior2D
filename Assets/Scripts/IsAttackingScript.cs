@@ -5,6 +5,8 @@ using UnityEngine;
 public class IsAttackingScript : MonoBehaviour
 {
     public bool isAttacking;
+    [SerializeField] PlayerMovement player;
+
 
 
     void Start()
@@ -29,5 +31,10 @@ public class IsAttackingScript : MonoBehaviour
     public void isNotAttackingBool()
     {
         isAttacking=false;
+    }
+
+    public void CallCheckPoint()
+    {
+        player.CheckPoint();
     }
 }
