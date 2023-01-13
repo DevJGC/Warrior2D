@@ -10,6 +10,8 @@ TagManager:
   - Ground
   - Coin
   - CheckPoint
+  - RightUp
+  - BaseLayer
   layers:
   - Default
   - TransparentFX

@@ -44,6 +44,9 @@ public class PlayerMovement : MonoBehaviour
     // CheckPoint Position
     [SerializeField] Transform checkPointPosition;
     public bool isCheckPointBool=false;
+
+    // Active particles Blood
+    [SerializeField] GameObject particlesBlood;
     
 
 
@@ -208,12 +211,15 @@ public class PlayerMovement : MonoBehaviour
         audioSource.PlayOneShot(dieSound);
         animator.SetTrigger("Die");
         Invoke("isDead",1f);
+                    // active parcicle object
+                    particlesBlood.SetActive(true);
        
     }
 
     public void isDead()
     {
         animator.SetBool("isDead", true);
+
     }
 
     public void CheckRigidBody2dGround()
@@ -240,6 +246,7 @@ public class PlayerMovement : MonoBehaviour
         {
             imageEnergy.color = Color.red;
             isDie=true;
+
             Die();
         }
     }
@@ -271,6 +278,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = checkPointPosition.position;
         isDie=false;
         
+
         
         animator.SetBool("isDead", false);
         animator.SetFloat("Speed", 0f);
@@ -285,6 +293,8 @@ public class PlayerMovement : MonoBehaviour
         energy=1f;
         imageEnergy.color = Color.white;
         imageEnergy.fillAmount = 1f;
+                    // desactive parcicle object
+                    particlesBlood.SetActive(false);
         
 
         

@@ -19,6 +19,12 @@ public class FollowPlayer : MonoBehaviour
     {
 
         transform.position = new Vector3(player.position.x, 0, transform.position.z);
+
+        // Press Escale to Menu Scene
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Menu");
+        }
         
     }
 }

@@ -6,6 +6,13 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] PlayerMovement player;
+    // Position X Player
+    [SerializeField] GameObject playerPositionObject;
+
+    // Coin Enemy
+    [SerializeField] GameObject coin;
+
+
     [SerializeField] IsAttackingScript isAttackingScript;
     [SerializeField] Animator attackPlayer;
 
@@ -20,10 +27,15 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] CircleCollider2D colliderEnemy;
 
+    // particle object
+    [SerializeField] GameObject particlesEnemyBlood;
+
 
 
     void Start()
     {
+        // Reference Coin Prefab
+       // coin = GameObject.Find("Coin");
        
     }
 
@@ -31,6 +43,20 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         inAttack=isAttackingScript.isAttacking;
+
+    // Change Flip Enemy look to Enemy
+    if (transform.position.x > playerPositionObject.transform.position.x && energyEnemy>0f)
+    {
+       // Flip left Sprite renderer
+       gameObject.GetComponent<SpriteRenderer>().flipX = true;
+    }
+    else
+    {
+       gameObject.GetComponent<SpriteRenderer>().flipX = false;
+    }
+
+
+
         
     }
 
@@ -86,6 +112,22 @@ public class Enemy : MonoBehaviour
         animatorEnemy.SetTrigger("Die");
         colliderEnemy.enabled=false;
         animatorEnemy.SetBool("isLive",false);
+
+        // active particles
+
+        particlesEnemyBlood.SetActive(true);
+
+        // Instantiate Coin
+        //Instantiate(coin,transform.position,Quaternion.identity);
+
+        // remove from father
+        coin.SetActive(true);
+        coin.transform.parent=null;
+        // set parent to Tag layer
+        coin.transform.SetParent(GameObject.FindWithTag("BaseLayer").transform);
+
+
+        // Destroy Enemy
         Destroy(gameObject,2f);
         
     }

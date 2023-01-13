@@ -5,9 +5,12 @@ using UnityEngine;
 public class Collected : MonoBehaviour
 {
     [SerializeField] Transform positionFinal;
+
     public bool isCollected;
     void Start()
     {
+        // Find whith name
+        positionFinal = GameObject.Find("RightUp").transform;
         
     }
 

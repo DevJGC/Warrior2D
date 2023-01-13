@@ -1,6 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// using SceneManagement
+using UnityEngine.SceneManagement;
+
+
+
 
 public class TriggerPlayer : MonoBehaviour
 {
@@ -10,7 +15,15 @@ public class TriggerPlayer : MonoBehaviour
 
     [SerializeField] AudioClip coinSound;
     [SerializeField] AudioClip checkPointSound;
+    [SerializeField] AudioClip finalLevelSound;
+
     [SerializeField] CheckPoint checkPoint;
+
+    // Particle
+    [SerializeField] GameObject particleCheckPoint;
+
+    // Particle final level
+    [SerializeField] GameObject particleFinalLevel;
     
 
 
@@ -71,14 +84,31 @@ public class TriggerPlayer : MonoBehaviour
         {
 
             audioSource.PlayOneShot(checkPointSound);
+            particleCheckPoint.SetActive(true);
             //player.checkPoint = collision.gameObject.transform.position;
             Destroy(collision.gameObject.GetComponent<BoxCollider2D>(),1f);
         }    
 
+        // Finish
+        if (collision.gameObject.tag == "Finish")
+        {
+           StartCoroutine(LoadSceneLevels());
 
 
+        }
 
+    }
 
+    // Corutine scenemanagement
+    IEnumerator LoadSceneLevels()
+    {
+        // Start Particle
+        particleFinalLevel.SetActive(true);
+        // Play sound
+        audioSource.PlayOneShot(finalLevelSound);
+
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene("Levels");
     }
 
 
