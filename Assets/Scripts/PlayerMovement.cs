@@ -121,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Attack
-        if (Input.GetMouseButton(0) || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {   
             Attack();
         }

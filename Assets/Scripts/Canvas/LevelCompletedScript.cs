@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 
 public class LevelCompletedScript : MonoBehaviour
@@ -31,8 +32,36 @@ public class LevelCompletedScript : MonoBehaviour
     [SerializeField] AudioClip coinSound;
     [SerializeField] AudioClip diamondSound;
 
+    //PlayerPrefs variables
+    int levelPlayerPreft;
+    int coinPlayerPref;
+    int diamondPlayerPref;
+
+    int totalCoins;
+    int totalDiamonds;
+
+
     
-    
+    void Awake() 
+    {
+
+        levelPlayerPreft = PlayerPrefs.GetInt("level");
+        coinPlayerPref = PlayerPrefs.GetInt("totalCoins");
+        diamondPlayerPref = PlayerPrefs.GetInt("totalDiamonds");
+
+        // Guardar los datos del player
+        coin = playerMovement.coin;
+        diamond = playerMovement.diamond;
+        
+        PlayerPrefs.SetInt("totalCoins", coinPlayerPref + coin);
+        PlayerPrefs.SetInt("totalDiamonds", diamondPlayerPref + diamond);
+
+        totalCoins = PlayerPrefs.GetInt("totalCoins");
+        totalDiamonds = PlayerPrefs.GetInt("totalDiamonds");
+
+
+
+    }
 
 
 
@@ -43,6 +72,13 @@ public class LevelCompletedScript : MonoBehaviour
         // Guardar los datos del player
         coin = playerMovement.coin;
         diamond = playerMovement.diamond;
+
+        // Desactivar ScriptPlayer
+        playerMovement.enabled = false;
+
+        Debug.Log("Total coin: " + totalCoins);
+        Debug.Log("Total diamond: " + totalDiamonds);
+        Debug.Log("Total level: " + levelPlayerPreft);
 
 
     }
@@ -94,9 +130,20 @@ public class LevelCompletedScript : MonoBehaviour
         diamondBase++;
         textDiamondBase.text = diamondBase.ToString();
         audioSource.PlayOneShot(diamondSound);
-        
 
     }
+
+    public void LevelsScene()
+    {
+       SceneManager.LoadScene("Levels");
+    }
+
+    public void MenuScene()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+
 
 
 }

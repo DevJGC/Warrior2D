@@ -2,21 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+
 
 
 public class CanvasLevelControl : MonoBehaviour
 {
     
     public GameObject[] levelButtons;
-    public int level=1;
+    [SerializeField] int level;
+
+    // PlayerPrefs
+
+    int localTotalCoins;
+    int localTotalDiamonds;
+
+    // Canvas
+    [SerializeField] TMP_Text textTotalCoins;
+    [SerializeField] TMP_Text textTotalDiamonds;
+
 
 
     void Awake()
     {
-        PlayerPrefs.SetInt("level", 1);
+        // Para cambiar el valor "level" de PlayerPrefs
+        //PlayerPrefs.SetInt("level", 1);
 
         level = PlayerPrefs.GetInt("level");
+        localTotalCoins = PlayerPrefs.GetInt("totalCoins");
+        localTotalDiamonds = PlayerPrefs.GetInt("totalDiamonds");
+
+        
+        // Control manual de niveles
         Debug.Log(level);
+       // level = level + 1;
     }
     
     void Start()
@@ -29,6 +48,8 @@ public class CanvasLevelControl : MonoBehaviour
                 levelButtons[i].SetActive(false);
             }
         }
+
+        SynCanvas();
         
     }
 
@@ -45,4 +66,16 @@ public class CanvasLevelControl : MonoBehaviour
         SceneManager.LoadScene(levelName);
 
     }
+
+    public void MenuScene()
+    {
+        SceneManager.LoadScene("Menu");
+    }
+
+    private void SynCanvas()
+    {
+        textTotalCoins.text = localTotalCoins.ToString();
+        textTotalDiamonds.text = localTotalDiamonds.ToString();
+    }
+
 }
