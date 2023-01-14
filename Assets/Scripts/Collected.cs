@@ -10,7 +10,7 @@ public class Collected : MonoBehaviour
     void Start()
     {
         // Find whith name
-        positionFinal = GameObject.Find("RightUp").transform;
+       // positionFinal = GameObject.Find("LeftUp").transform;
         
     }
 

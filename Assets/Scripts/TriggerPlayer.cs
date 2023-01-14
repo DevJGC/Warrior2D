@@ -24,6 +24,9 @@ public class TriggerPlayer : MonoBehaviour
 
     // Particle final level
     [SerializeField] GameObject particleFinalLevel;
+
+    // Referencia canvas LevelCompleted
+    [SerializeField] GameObject levelCompletedCanvas;
     
 
 
@@ -108,7 +111,8 @@ public class TriggerPlayer : MonoBehaviour
         audioSource.PlayOneShot(finalLevelSound);
 
         yield return new WaitForSeconds(2f);
-        SceneManager.LoadScene("Levels");
+        //SceneManager.LoadScene("Levels");
+        levelCompletedCanvas.SetActive(true);
     }
 
 
