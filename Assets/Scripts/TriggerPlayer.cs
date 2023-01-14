@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// using SceneManagement
 using UnityEngine.SceneManagement;
-
-
 
 
 public class TriggerPlayer : MonoBehaviour
@@ -29,11 +26,26 @@ public class TriggerPlayer : MonoBehaviour
     [SerializeField] GameObject levelCompletedCanvas;
     
 
+    // Mira el valorLevel del Finish actual
+    [SerializeField] ValueLevelFinish[] valueLevelFinish;
+    int actualLevelFinish;
+    int level;
 
+    void Awake() 
+    {
+        level = PlayerPrefs.GetInt("level");
+    }
+    
 
 
     void Start()
     {
+
+        // Mira el valorLevel del Finish actual
+        actualLevelFinish = valueLevelFinish[level].myLevel;
+        Debug.Log("Valor actualLevelFinish: " + actualLevelFinish);
+
+
         
     }
 
@@ -95,8 +107,15 @@ public class TriggerPlayer : MonoBehaviour
         // Finish
         if (collision.gameObject.tag == "Finish")
         {
-           StartCoroutine(LoadSceneLevels());
+            // Mira el valorLevel del Finish actual
+            actualLevelFinish = valueLevelFinish[level].myLevel;
+            Debug.Log("Valor actualLevelFinish: " + actualLevelFinish);
 
+            // CheckLevelsPlayfabs
+            CheckLevelsPlayfabs();
+
+            // Corutine
+           StartCoroutine(LoadSceneLevels());
 
         }
 
@@ -115,6 +134,57 @@ public class TriggerPlayer : MonoBehaviour
         levelCompletedCanvas.SetActive(true);
     }
 
+    public void CheckLevelsPlayfabs()
+    {
+        if (actualLevelFinish==1)
+        {
+            PlayerPrefs.SetInt("LevelCompleted1",1);
+        }
+        
+        if (actualLevelFinish==2)
+        {
+            PlayerPrefs.SetInt("LevelCompleted2",1);
+        }
+
+        if (actualLevelFinish==3)
+        {
+            PlayerPrefs.SetInt("LevelCompleted3",1);
+        }
+
+        if (actualLevelFinish==4)
+        {
+            PlayerPrefs.SetInt("LevelCompleted4",1);
+        }
+
+        if (actualLevelFinish==5)
+        {
+            PlayerPrefs.SetInt("LevelCompleted5",1);
+        }
+
+        if (actualLevelFinish==6)
+        {
+            PlayerPrefs.SetInt("LevelCompleted6",1);
+        }
+
+        if (actualLevelFinish==7)
+        {
+            PlayerPrefs.SetInt("LevelCompleted7",1);
+        }
+
+        if (actualLevelFinish==8)
+        {
+            PlayerPrefs.SetInt("LevelCompleted8",1);
+        }
+
+        if (actualLevelFinish==9)
+        {
+            PlayerPrefs.SetInt("LevelCompleted9",1);
+        }
+
+
+
+
+    }
 
     
 
