@@ -8,7 +8,7 @@ public class CheckPoint : MonoBehaviour
 
     void Start()
     {
-        
+        isCheckPoint = false;
     }
 
     // Update is called once per frame

@@ -17,13 +17,16 @@ public class TriggerPlayer : MonoBehaviour
     [SerializeField] CheckPoint checkPoint;
 
     // Particle
-    [SerializeField] GameObject particleCheckPoint;
+    //[SerializeField] GameObject particleCheckPoint;
+    [SerializeField] ParticleSystem particleCheckPoint;
+
 
     // Particle final level
-    [SerializeField] GameObject particleFinalLevel;
+    [SerializeField] ParticleSystem particleFinalLevel;
 
     // Referencia canvas LevelCompleted
     [SerializeField] GameObject levelCompletedCanvas;
+
     
 
     // Mira el valorLevel del Finish actual
@@ -44,6 +47,14 @@ public class TriggerPlayer : MonoBehaviour
         // Mira el valorLevel del Finish actual
         actualLevelFinish = valueLevelFinish[level].myLevel;
         Debug.Log("Valor actualLevelFinish: " + actualLevelFinish);
+
+        // Particle
+       // particleCheckPoint.gameObject.AddComponent<BoxCollider2D>();
+
+ 
+
+        // find particlecheckpoint object
+
 
 
         
@@ -95,11 +106,13 @@ public class TriggerPlayer : MonoBehaviour
 
         }
 
-        if (collision.gameObject.tag == "CheckPoint" && checkPoint.isCheckPoint)
+        if (collision.gameObject.tag == "CheckPoint")
         {
 
             audioSource.PlayOneShot(checkPointSound);
-            particleCheckPoint.SetActive(true);
+            //particleCheckPoint.SetActive(true);
+            particleCheckPoint.Play();
+
             //player.checkPoint = collision.gameObject.transform.position;
             Destroy(collision.gameObject.GetComponent<BoxCollider2D>(),1f);
         }    
@@ -108,6 +121,8 @@ public class TriggerPlayer : MonoBehaviour
         if (collision.gameObject.tag == "Finish")
         {
             // Mira el valorLevel del Finish actual
+            // active particle final level
+            particleFinalLevel.Play();
             actualLevelFinish = valueLevelFinish[level].myLevel;
             Debug.Log("Valor actualLevelFinish: " + actualLevelFinish);
 
@@ -125,7 +140,7 @@ public class TriggerPlayer : MonoBehaviour
     IEnumerator LoadSceneLevels()
     {
         // Start Particle
-        particleFinalLevel.SetActive(true);
+        particleFinalLevel.Play();
         // Play sound
         audioSource.PlayOneShot(finalLevelSound);
 
@@ -180,8 +195,6 @@ public class TriggerPlayer : MonoBehaviour
         {
             PlayerPrefs.SetInt("LevelCompleted9",1);
         }
-
-
 
 
     }

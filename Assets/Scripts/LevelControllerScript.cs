@@ -17,13 +17,13 @@ public class LevelControllerScript : MonoBehaviour
     {
         for (int i = 0; i < levelsObjects.Length; i++)
         {
-            if (i == level)
+            if (i  == level-1)
             {
-                levelsObjects[i].SetActive(false);
+                levelsObjects[i].SetActive(true);
             }
             else
             {
-                levelsObjects[i].SetActive(true);
+                levelsObjects[i].SetActive(false);
             }
         }
         
