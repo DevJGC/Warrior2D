@@ -26,7 +26,7 @@ public class MenuPlay : MonoBehaviour
         {
             Application.Quit();
             // Exit unity engine
-            UnityEditor.EditorApplication.isPlaying = false;
+           // UnityEditor.EditorApplication.isPlaying = false;
         }
 
         
