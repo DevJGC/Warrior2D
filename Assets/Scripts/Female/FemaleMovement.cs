@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class FemaleMovement : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class FemaleMovement : MonoBehaviour
     [SerializeField] GameObject dialogPanel;
     // UI TMPro text
     [SerializeField] TMP_Text dialogText;
+    [SerializeField] Button buttonContinue;
 
     // Counter flow dialog 
     public int dialogCounter;
@@ -32,7 +34,7 @@ public class FemaleMovement : MonoBehaviour
         // invoke text program sequence
         StartCoroutine("DialogText","Cariño, la chiquilla no está en casa, ha dejado una nota...");   
         // startcoroutine wait seconds
-        StartCoroutine("WaitSeconds",8);
+        StartCoroutine("WaitSeconds",6);
         
 
     }
@@ -88,6 +90,7 @@ public class FemaleMovement : MonoBehaviour
         // If player enters trigger
         if (other.gameObject == player)
         {
+            // cuando toca al player
         }
     }
 
@@ -109,13 +112,20 @@ public class FemaleMovement : MonoBehaviour
     // ienumerator Show Text
     IEnumerator DialogText(string textDialog)
     {
+        buttonContinue.GetComponent<Button>().interactable = false;
+
         yield return new WaitForSeconds(2f);
 
         for (int i = 0; i < textDialog.Length; i++)
         {
             dialogText.text += textDialog[i];
             yield return new WaitForSeconds(0.05f);
+            // activate button continue
+            buttonContinue.GetComponent<Button>().interactable = false;
+            
         }
+        buttonContinue.GetComponent<Button>().interactable = true;
+        
     }
 
     // ienumerator wait seconds
@@ -123,6 +133,10 @@ public class FemaleMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(seconds);
         //CloseDialogPanel();
+        
+
+       // buttonContinue.GetComponent<Button>().interactable = true;
+
         
     }
 
@@ -152,8 +166,23 @@ public class FemaleMovement : MonoBehaviour
             CloseDialogPanel();
             // activate dialogPlayer object
             dialogPlayer.SetActive(true);
-            
         }
+
+        if (dialogCounter == 6)
+        {
+            ActiveDialogPanel();
+            StartCoroutine("DialogText","Ufff... cómo me pones cuando te pones así de bruto...");
+            StartCoroutine("WaitSeconds", 1);
+        }
+
+        if (dialogCounter == 7)
+        {
+            CloseDialogPanel();
+            // activate dialogPlayer object
+           // dialogPlayer.SetActive(true);
+        }
+
+        
     }
 
 

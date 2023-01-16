@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
+
 
 public class DialogPlayer : MonoBehaviour
 {
@@ -15,6 +18,10 @@ public class DialogPlayer : MonoBehaviour
 
     // Counter flow dialog 
     public int dialogCounterPlayer;
+    [SerializeField] Button buttonContinuePlayer;
+
+    // reference female
+    [SerializeField] GameObject femalePlayer;
     
 
     void Start()
@@ -41,7 +48,7 @@ public class DialogPlayer : MonoBehaviour
     }
 
     // Active dialog panel
-    private void ActiveDialogPanel()
+    public void ActiveDialogPanel()
     {
         dialogPanel.SetActive(true);
         dialogText.text = "";
@@ -58,13 +65,18 @@ public class DialogPlayer : MonoBehaviour
     // ienumerator Show Text
     IEnumerator DialogText(string textDialog)
     {
+        buttonContinuePlayer.GetComponent<Button>().interactable = false;
         yield return new WaitForSeconds(2f);
 
         for (int i = 0; i < textDialog.Length; i++)
         {
             dialogText.text += textDialog[i];
             yield return new WaitForSeconds(0.05f);
+            buttonContinuePlayer.GetComponent<Button>().interactable = false;
         }
+    
+         buttonContinuePlayer.GetComponent<Button>().interactable = true;
+
     }
 
     // ienumerator wait seconds
@@ -83,24 +95,31 @@ public class DialogPlayer : MonoBehaviour
         dialogText.text = "";
         if (dialogCounterPlayer == 1)
         {
-            StartCoroutine("DialogText","Dice que se quiere casar con el Jonathan, el hijo de la Paqui...");
+            StartCoroutine("DialogText","Como se haya liado con el niñato ese, la espabilo!!!...");
             StartCoroutine("WaitSeconds", 1);
         }
         if (dialogCounterPlayer == 2)
         {
-            StartCoroutine("DialogText","Esa familia son todos unos perros. No dan palo al agua!!!...");
+            StartCoroutine("DialogText","Tú quédate aquí, no se lo que tardaré. Llevo el hacha...");
             StartCoroutine("WaitSeconds", 1);
         }
         if (dialogCounterPlayer == 3)
         {
-            StartCoroutine("DialogText","Así que ve a por ella antes de que me la preñen. VE!!!");
+            StartCoroutine("DialogText","El que se meta en mi camino lo despellejo como un conejo.");
             StartCoroutine("WaitSeconds", 1);
         }
         if (dialogCounterPlayer == 4)
         {
             CloseDialogPanel();
+            // active ActiveDialogPanel() female object
+            femalePlayer.GetComponent<FemaleMovement>().ActiveDialogPanel();
+            femalePlayer.GetComponent<FemaleMovement>().dialogCounter = 5;
+            // activate CountDialog()
+            femalePlayer.GetComponent<FemaleMovement>().CountDialog();
+
             // activate dialogPlayer object
           //  dialogPlayer.SetActive(true);
+
             
         }
     }
