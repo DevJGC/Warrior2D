@@ -7,6 +7,9 @@ public class FemaleMovement : MonoBehaviour
 {
     // Reference player
     [SerializeField] Transform player;
+    // reference player dialog system
+    [SerializeField] GameObject dialogPlayer;
+
     bool femaleDistanceBool;
     [SerializeField] SpriteRenderer spriteRenderer;
 
@@ -21,7 +24,7 @@ public class FemaleMovement : MonoBehaviour
     [SerializeField] TMP_Text dialogText;
 
     // Counter flow dialog 
-    int dialogCounter;
+    public int dialogCounter;
 
     void Start()
     {
@@ -147,6 +150,9 @@ public class FemaleMovement : MonoBehaviour
         if (dialogCounter == 4)
         {
             CloseDialogPanel();
+            // activate dialogPlayer object
+            dialogPlayer.SetActive(true);
+            
         }
     }
 
