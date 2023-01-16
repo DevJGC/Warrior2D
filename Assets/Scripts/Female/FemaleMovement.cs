@@ -28,13 +28,17 @@ public class FemaleMovement : MonoBehaviour
     // Counter flow dialog 
     public int dialogCounter;
 
+    // sound
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClipType;
+
     void Start()
     {
-        Invoke("ActiveDialogPanel",2);
+        Invoke("ActiveDialogPanel",1);
         // invoke text program sequence
         StartCoroutine("DialogText","Cariño, la chiquilla no está en casa, ha dejado una nota...");   
         // startcoroutine wait seconds
-        StartCoroutine("WaitSeconds",6);
+        StartCoroutine("WaitSeconds",2);
         
 
     }
@@ -114,11 +118,12 @@ public class FemaleMovement : MonoBehaviour
     {
         buttonContinue.GetComponent<Button>().interactable = false;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         for (int i = 0; i < textDialog.Length; i++)
         {
             dialogText.text += textDialog[i];
+            audioSource.PlayOneShot(audioClipType);
             yield return new WaitForSeconds(0.05f);
             // activate button continue
             buttonContinue.GetComponent<Button>().interactable = false;
@@ -132,10 +137,6 @@ public class FemaleMovement : MonoBehaviour
     IEnumerator WaitSeconds(float seconds)
     {
         yield return new WaitForSeconds(seconds);
-        //CloseDialogPanel();
-        
-
-       // buttonContinue.GetComponent<Button>().interactable = true;
 
         
     }
@@ -149,17 +150,17 @@ public class FemaleMovement : MonoBehaviour
         if (dialogCounter == 1)
         {
             StartCoroutine("DialogText","Dice que se quiere casar con el Jonathan, el hijo de la Paqui...");
-            StartCoroutine("WaitSeconds", 1);
+            StartCoroutine("WaitSeconds", 0.5f);
         }
         if (dialogCounter == 2)
         {
             StartCoroutine("DialogText","Esa familia son todos unos perros. No dan palo al agua!!!...");
-            StartCoroutine("WaitSeconds", 1);
+            StartCoroutine("WaitSeconds", 0.5f);
         }
         if (dialogCounter == 3)
         {
             StartCoroutine("DialogText","Así que ve a por ella antes de que me la preñen. VE!!!");
-            StartCoroutine("WaitSeconds", 1);
+            StartCoroutine("WaitSeconds", 0.5f);
         }
         if (dialogCounter == 4)
         {
@@ -171,8 +172,8 @@ public class FemaleMovement : MonoBehaviour
         if (dialogCounter == 6)
         {
             ActiveDialogPanel();
-            StartCoroutine("DialogText","Ufff... cómo me pones cuando te pones así de bruto...");
-            StartCoroutine("WaitSeconds", 1);
+            StartCoroutine("DialogText","Ufff... cómo me pones Manolo cuando eres así de bruto...");
+            StartCoroutine("WaitSeconds", 0.5f);
         }
 
         if (dialogCounter == 7)

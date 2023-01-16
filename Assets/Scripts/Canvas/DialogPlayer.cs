@@ -22,15 +22,19 @@ public class DialogPlayer : MonoBehaviour
 
     // reference female
     [SerializeField] GameObject femalePlayer;
+
+    // sound
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClipType;
     
 
     void Start()
     {
-        Invoke("ActiveDialogPanel",2);
+        Invoke("ActiveDialogPanel",1);
         // invoke text program sequence
         StartCoroutine("DialogText","Vale!!, no te preocupes, ahora salgo a rescatarla...");   
         // startcoroutine wait seconds
-        StartCoroutine("WaitSeconds",8);
+        StartCoroutine("WaitSeconds",3);
     }
 
     // Update is called once per frame
@@ -66,11 +70,12 @@ public class DialogPlayer : MonoBehaviour
     IEnumerator DialogText(string textDialog)
     {
         buttonContinuePlayer.GetComponent<Button>().interactable = false;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         for (int i = 0; i < textDialog.Length; i++)
         {
             dialogText.text += textDialog[i];
+            audioSource.PlayOneShot(audioClipType);
             yield return new WaitForSeconds(0.05f);
             buttonContinuePlayer.GetComponent<Button>().interactable = false;
         }
@@ -96,17 +101,17 @@ public class DialogPlayer : MonoBehaviour
         if (dialogCounterPlayer == 1)
         {
             StartCoroutine("DialogText","Como se haya liado con el niñato ese, la espabilo!!!...");
-            StartCoroutine("WaitSeconds", 1);
+            StartCoroutine("WaitSeconds", 0.5f);
         }
         if (dialogCounterPlayer == 2)
         {
             StartCoroutine("DialogText","Tú quédate aquí, no se lo que tardaré. Llevo el hacha...");
-            StartCoroutine("WaitSeconds", 1);
+            StartCoroutine("WaitSeconds", 0.5f);
         }
         if (dialogCounterPlayer == 3)
         {
-            StartCoroutine("DialogText","El que se meta en mi camino lo despellejo como un conejo.");
-            StartCoroutine("WaitSeconds", 1);
+            StartCoroutine("DialogText","El que se meta en mi camino lo despellejo como a un conejo.");
+            StartCoroutine("WaitSeconds", 0.5f);
         }
         if (dialogCounterPlayer == 4)
         {
