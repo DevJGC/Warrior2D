@@ -30,6 +30,12 @@ public class Enemy : MonoBehaviour
     // particle object
     [SerializeField] GameObject particlesEnemyBlood;
 
+    // object speaker 
+    [SerializeField] GameObject speakerObject;
+    bool speak;
+    // sound speack
+    [SerializeField] AudioClip soundSpeak;
+
 
 
     void Start()
@@ -44,16 +50,28 @@ public class Enemy : MonoBehaviour
     {
         inAttack=isAttackingScript.isAttacking;
 
-    // Change Flip Enemy look to Enemy
-    if (transform.position.x > playerPositionObject.transform.position.x && energyEnemy>0f)
-    {
-       // Flip left Sprite renderer
-       gameObject.GetComponent<SpriteRenderer>().flipX = true;
-    }
-    else
-    {
-       gameObject.GetComponent<SpriteRenderer>().flipX = false;
-    }
+        // Change Flip Enemy look to Enemy
+         if (transform.position.x > playerPositionObject.transform.position.x && energyEnemy>0f)
+         {
+              // Flip left Sprite renderer
+              gameObject.GetComponent<SpriteRenderer>().flipX = true;
+           }
+        else
+        {
+         gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        // check distance to player and activate speacker object
+        if (Vector2.Distance(transform.position,playerPositionObject.transform.position)<6f && speak==false)
+        {
+            speakerObject.SetActive(true);
+            speak=true;
+            audioSource.PlayOneShot(soundSpeak);
+        }
+        else
+        {
+            //speakerObject.SetActive(false);
+        }
 
 
 
@@ -64,6 +82,8 @@ public class Enemy : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            speakerObject.SetActive(false);
+            
             if (!inAttack)
             {
                 //player.Hurt();
