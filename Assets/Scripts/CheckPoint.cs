@@ -6,9 +6,12 @@ public class CheckPoint : MonoBehaviour
 {
     public bool isCheckPoint;
 
+
+
     void Start()
     {
         isCheckPoint = false;
+
     }
 
     // Update is called once per frame
@@ -26,6 +29,7 @@ public class CheckPoint : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             isCheckPoint = true;
+
         }
     }
 }

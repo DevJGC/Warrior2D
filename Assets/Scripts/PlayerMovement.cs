@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     // CheckPoint Position
     [SerializeField] Transform checkPointPosition;
     public bool isCheckPointBool=false;
+  
 
     // Active particles Blood
     [SerializeField] GameObject particlesBlood;
@@ -283,9 +284,11 @@ public class PlayerMovement : MonoBehaviour
        // imageEnergy.fillAmount = 0f;
         
         transform.position = checkPointPosition.position;
+
+   
+
         isDie=false;
         
-
         
         animator.SetBool("isDead", false);
         animator.SetFloat("Speed", 0f);

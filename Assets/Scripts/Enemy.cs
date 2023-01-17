@@ -68,14 +68,11 @@ public class Enemy : MonoBehaviour
             speak=true;
             audioSource.PlayOneShot(soundSpeak);
         }
-        else
+        if (Vector2.Distance(transform.position,playerPositionObject.transform.position)>6f && speak==true)
         {
-            //speakerObject.SetActive(false);
+            speakerObject.SetActive(false);
         }
 
-
-
-        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

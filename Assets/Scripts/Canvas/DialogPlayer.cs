@@ -202,7 +202,7 @@ public class DialogPlayer : MonoBehaviour
 
         if (dialogCounterPlayer == 13)
         {
-            StartCoroutine("DialogText","que te lo tengo que decir todo, así que cúrraterlo....");
+            StartCoroutine("DialogText","que te lo tengo que decir todo, así que ayúdame por favor...");
             StartCoroutine("WaitSeconds", 0.5f);
         }
 
