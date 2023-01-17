@@ -121,11 +121,65 @@ public class DialogPlayer : MonoBehaviour
             femalePlayer.GetComponent<FemaleMovement>().dialogCounter = 5;
             // activate CountDialog()
             femalePlayer.GetComponent<FemaleMovement>().CountDialog();
-
-            // activate dialogPlayer object
-          //  dialogPlayer.SetActive(true);
-
-            
+           
         }
+
+        if (dialogCounterPlayer == 6)
+        {
+            ActiveDialogPanel();
+            
+            StartCoroutine("DialogText","Oye, Tu!!, el que está detrás de la pantalla!, si tu!!!");
+            StartCoroutine("WaitSeconds", 0.5f);   
+        }
+
+        if (dialogCounterPlayer == 7)
+        {
+            StartCoroutine("DialogText","Aýudame!, solo tienes que moverme con los cursores < >");
+            StartCoroutine("WaitSeconds", 0.5f);
+        }   
+
+        if (dialogCounterPlayer == 8)
+        {
+            StartCoroutine("DialogText","Y para saltar con la flecha hacia arriba... ");
+            StartCoroutine("WaitSeconds", 0.5f);
+        }  
+
+        if (dialogCounterPlayer == 9)
+        {
+            StartCoroutine("DialogText","Y si pulsas 2 veces rápido, haré doble salto... ");
+            StartCoroutine("WaitSeconds", 0.5f);
+        }
+
+        if (dialogCounterPlayer == 10)
+        {
+            StartCoroutine("DialogText","Y para pegar hachazos, pulsa la tecla Espacio... ");
+            StartCoroutine("WaitSeconds", 0.5f);
+        }    
+
+        if (dialogCounterPlayer == 11)
+        {
+            StartCoroutine("DialogText","Ahh! y ese cartelito con la estrella verde, es para...");
+            StartCoroutine("WaitSeconds", 0.5f);
+        }  
+
+        if (dialogCounterPlayer == 12)
+        {
+            StartCoroutine("DialogText","guardar el punto de avance, es decir, un Checkpoint, imbécil...");
+            StartCoroutine("WaitSeconds", 0.5f);
+        }  
+
+        if (dialogCounterPlayer == 13)
+        {
+            StartCoroutine("DialogText","que te lo tengo que decir todo, así que cúrraterlo....");
+            StartCoroutine("WaitSeconds", 0.5f);
+        }
+
+        if (dialogCounterPlayer == 14)
+        {
+            CloseDialogPanel();
+
+        }     
+
+
     }
 }

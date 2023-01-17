@@ -179,6 +179,9 @@ public class FemaleMovement : MonoBehaviour
         if (dialogCounter == 7)
         {
             CloseDialogPanel();
+            // deactivate FemaleMovement
+            Destroy(this);
+
             // activate dialogPlayer object
            // dialogPlayer.SetActive(true);
         }
