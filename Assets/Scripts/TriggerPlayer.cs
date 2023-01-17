@@ -120,6 +120,8 @@ public class TriggerPlayer : MonoBehaviour
         // Finish
         if (collision.gameObject.tag == "Finish")
         {
+            // active isPaused del player
+            player.isPaused=true;
             // Mira el valorLevel del Finish actual
             // active particle final level
             particleFinalLevel.Play();

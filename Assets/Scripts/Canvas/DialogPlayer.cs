@@ -10,6 +10,8 @@ public class DialogPlayer : MonoBehaviour
 {
     // reference player
     public GameObject player;
+    // reference player animator
+    [SerializeField] Animator playerAnimator;
 
     
     [SerializeField] GameObject dialogPanel;
@@ -26,15 +28,19 @@ public class DialogPlayer : MonoBehaviour
     // sound
     [SerializeField] AudioSource audioSource;
     [SerializeField] AudioClip audioClipType;
+
+    // Info Keys tutorial array active
+    [SerializeField] GameObject[] infoKeysTutorial;
     
 
     void Start()
     {
         Invoke("ActiveDialogPanel",1);
         // invoke text program sequence
-        StartCoroutine("DialogText","Vale!!, no te preocupes, ahora salgo a rescatarla...");   
+        StartCoroutine("DialogText","Vale Carmen, no te preocupes, ahora salgo a rescatarla...");   
         // startcoroutine wait seconds
         StartCoroutine("WaitSeconds",3);
+        
     }
 
     // Update is called once per frame
@@ -78,6 +84,8 @@ public class DialogPlayer : MonoBehaviour
             audioSource.PlayOneShot(audioClipType);
             yield return new WaitForSeconds(0.05f);
             buttonContinuePlayer.GetComponent<Button>().interactable = false;
+            // revisar esto!!!
+            //playerAnimator.Play("Idle");
         }
     
          buttonContinuePlayer.GetComponent<Button>().interactable = true;
@@ -121,26 +129,46 @@ public class DialogPlayer : MonoBehaviour
             femalePlayer.GetComponent<FemaleMovement>().dialogCounter = 5;
             // activate CountDialog()
             femalePlayer.GetComponent<FemaleMovement>().CountDialog();
+            
            
         }
 
         if (dialogCounterPlayer == 6)
         {
+
             ActiveDialogPanel();
+
+            // stop player
+            player.GetComponent<PlayerMovement>().isPaused = true;
+            // deactive animator player
+            //playerAnimator.enabled = false;
+            // set anim position
+            //playerAnimator.Play("IsPaused");
+            // active bool animator isPaused
+            playerAnimator.SetBool("IsPaused", true);
+
+            //playerAnimator.enabled = false;
+
             
-            StartCoroutine("DialogText","Oye, Tu!!, el que está detrás de la pantalla!, si tu!!!");
+            StartCoroutine("DialogText","Oye, Tú!!, el que está detrás de la pantalla!, si tú!!!");
             StartCoroutine("WaitSeconds", 0.5f);   
         }
 
         if (dialogCounterPlayer == 7)
         {
-            StartCoroutine("DialogText","Aýudame!, solo tienes que moverme con los cursores < >");
+           
+            StartCoroutine("DialogText","Aýudame!, solo tienes que moverme con las teclas < >");
+            // active tutoria array 
+            infoKeysTutorial[0].SetActive(true);
             StartCoroutine("WaitSeconds", 0.5f);
         }   
 
         if (dialogCounterPlayer == 8)
         {
-            StartCoroutine("DialogText","Y para saltar con la flecha hacia arriba... ");
+            
+            StartCoroutine("DialogText","Y para hacerme saltar con la flecha hacia arriba... ");
+            infoKeysTutorial[1].SetActive(true);
+            infoKeysTutorial[0].SetActive(false);
             StartCoroutine("WaitSeconds", 0.5f);
         }  
 
@@ -153,11 +181,15 @@ public class DialogPlayer : MonoBehaviour
         if (dialogCounterPlayer == 10)
         {
             StartCoroutine("DialogText","Y para pegar hachazos, pulsa la tecla Espacio... ");
+            infoKeysTutorial[2].SetActive(true);
+            infoKeysTutorial[1].SetActive(false);
+
             StartCoroutine("WaitSeconds", 0.5f);
         }    
 
         if (dialogCounterPlayer == 11)
         {
+            infoKeysTutorial[2].SetActive(false);
             StartCoroutine("DialogText","Ahh! y ese cartelito con la estrella verde, es para...");
             StartCoroutine("WaitSeconds", 0.5f);
         }  
@@ -176,6 +208,11 @@ public class DialogPlayer : MonoBehaviour
 
         if (dialogCounterPlayer == 14)
         {
+            player.gameObject.GetComponent<PlayerMovement>().isPaused = false;
+            playerAnimator.SetBool("IsPaused", false);
+            //playerAnimator.enabled = true;
+            
+
             CloseDialogPanel();
 
         }     

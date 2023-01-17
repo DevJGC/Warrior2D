@@ -9,6 +9,7 @@ public class FemaleMovement : MonoBehaviour
     // Reference player
     [SerializeField] Transform player;
     // reference player dialog system
+    [SerializeField] PlayerMovement playerMovement;
     [SerializeField] GameObject dialogPlayer;
 
     bool femaleDistanceBool;
@@ -39,6 +40,7 @@ public class FemaleMovement : MonoBehaviour
         StartCoroutine("DialogText","Cariño, la chiquilla no está en casa, ha dejado una nota...");   
         // startcoroutine wait seconds
         StartCoroutine("WaitSeconds",2);
+        playerMovement.isPaused = true;
         
 
     }
@@ -149,6 +151,7 @@ public class FemaleMovement : MonoBehaviour
         dialogText.text = "";
         if (dialogCounter == 1)
         {
+            
             StartCoroutine("DialogText","Dice que se quiere casar con el Jonathan, el hijo de la Paqui...");
             StartCoroutine("WaitSeconds", 0.5f);
         }
@@ -167,6 +170,7 @@ public class FemaleMovement : MonoBehaviour
             CloseDialogPanel();
             // activate dialogPlayer object
             dialogPlayer.SetActive(true);
+            
         }
 
         if (dialogCounter == 6)
@@ -174,17 +178,20 @@ public class FemaleMovement : MonoBehaviour
             ActiveDialogPanel();
             StartCoroutine("DialogText","Ufff... cómo me pones Manolo cuando eres así de bruto...");
             StartCoroutine("WaitSeconds", 0.5f);
+            
         }
 
         if (dialogCounter == 7)
         {
             CloseDialogPanel();
             // deactivate FemaleMovement
+             playerMovement.isPaused = false;
+
             Destroy(this);
 
-            // activate dialogPlayer object
-           // dialogPlayer.SetActive(true);
         }
+
+
 
         
     }

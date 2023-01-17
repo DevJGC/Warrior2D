@@ -7,9 +7,9 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] bool isGrounded;
-
+    public bool isPaused;
     [SerializeField] float jumpForce = 5f;
-    [SerializeField] float speed = 5f;
+    public float speed = 5f;
     float horizontalMovement;
 
     [SerializeField] Rigidbody2D rb;
@@ -105,7 +105,12 @@ public class PlayerMovement : MonoBehaviour
     {
         CheckRigidBody2dGround();
 
-        horizontalMovement = Input.GetAxis("Horizontal") * speed;
+        if (!isPaused)
+        {
+            horizontalMovement = Input.GetAxis("Horizontal") * speed;
+            rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
+        }
+        
 
         animator.SetFloat("Speed", Mathf.Abs(horizontalMovement));
 
@@ -127,7 +132,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
        // Jump
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded && isPaused==false)
         {
             isGrounded = false;
             audioSource.PlayOneShot(jumpSound);
@@ -140,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool("isJumping", true);
         }
 
-        rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
+        //rb.velocity = new Vector2(horizontalMovement, rb.velocity.y);
         if (rb.velocity.y == 0) isGrounded=true;
 
         //{
